@@ -4,11 +4,11 @@
 #define LED_BLUE        (1U << 2)
 #define LED_GREEN       (1U << 3)
 
-void delay();
-void delay()
+void delay(int iter);
+void delay(int iter)
 {
     unsigned int volatile counter = 0;
-    while (counter < 500000)
+    while (counter < iter)
         counter++;
 }
 
@@ -23,19 +23,15 @@ int main()
       GPIO_PORTF_AHB_DATA_R = LED_BLUE;
       //GPIO_PORTF_AHB_DATA_BITS_R[LED_BLUE] = LED_BLUE;
       
-      delay();
+      delay(500000);
       
-      //GPIO_PORTF_DATA_R |= LED_RED;
-      //*((volatile unsigned long *)(0x40025000 + (LED_RED << 2))) = LED_RED;
-      //*(GPIO_PORTF_DATA_BITS_R + LED_RED) = LED_RED;
       GPIO_PORTF_AHB_DATA_BITS_R[LED_RED] = LED_RED;
       
-      delay();
+      delay(500000);
       
-      //GPIO_PORTF_DATA_R |= LED_GREEN;
       GPIO_PORTF_AHB_DATA_BITS_R[LED_GREEN] = LED_GREEN;
       
-      delay();
+      delay(500000);
   }
   
   
