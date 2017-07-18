@@ -1,19 +1,20 @@
 #include "lm4f120h5qr.h"
+#include "delay.h"
 
 #define LED_RED         (1U << 1)
 #define LED_BLUE        (1U << 2)
 #define LED_GREEN       (1U << 3)
 
-void delay(int iter);
-void delay(int iter)
-{
-    unsigned int volatile counter = 0;
-    while (counter < iter)
-        counter++;
-}
+unsigned fact(unsigned n);
 
 int main()
 {
+  unsigned volatile x;
+  
+  x = fact(0U);
+  x = 2U + 3U * fact(1U);
+  (void)fact(5U);
+  
   SYSCTL_RCGCGPIO_R |= (1U << 5); // enable clock for GPIOF
   SYSCTL_GPIOHBCTL_R |= (1U << 5); // enable AHB for GPIOF
   GPIO_PORTF_AHB_DIR_R = (LED_RED | LED_BLUE | LED_GREEN); // set pin 1, 2, 3 as output
@@ -36,4 +37,12 @@ int main()
   
   
   return 0;
+}
+
+unsigned fact(unsigned n)
+{
+  if (n == 0U)
+    return 1U;
+  
+  return n * fact(n - 1);
 }
