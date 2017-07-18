@@ -1,23 +1,29 @@
+#include "lm4f120h5qr.h"
+
+#define LED_RED         (1U << 1)
+#define LED_BLUE        (1U << 2)
+#define LED_GREEN       (1U << 3)
+
 int main()
 {
-  *(unsigned int *)0x400FE608U = 0x20U;
-  *(unsigned int *)0x40025400U = 0x0EU;
-  *(unsigned int *)0x4002551CU = 0x0EU;
+  SYSCTL_RCGCGPIO_R = (1 << 5); // enable clock for GPIOF
+  GPIO_PORTF_DIR_R = (LED_RED | LED_BLUE | LED_GREEN); // set pin 1, 2, 3 as output
+  GPIO_PORTF_DEN_R = (LED_RED | LED_BLUE | LED_GREEN);
   while (1)
   {
-      *(unsigned int *)0x400253FCU = 0x02U;
+      GPIO_PORTF_DATA_R = LED_BLUE;
       
-      unsigned int counter = 0;
+      unsigned int volatile counter = 0;
       while (counter < 500000)
         counter++;
       
-      *(unsigned int *)0x400253FCU = 0x04U;
+      GPIO_PORTF_DATA_R |= LED_RED;
       
       counter = 0;
       while (counter < 500000)
         counter++;
       
-      *(unsigned int *)0x400253FCU = 0x08U;
+      GPIO_PORTF_DATA_R |= LED_GREEN;
       
       counter = 0;
       while (counter < 500000)
@@ -27,4 +33,3 @@ int main()
   
   return 0;
 }
-
