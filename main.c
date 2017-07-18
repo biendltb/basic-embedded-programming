@@ -1,21 +1,17 @@
+int counter = 0;
 
 int main()
 {
-  unsigned int counter = 0;
+  int *p_int;
+  p_int  = &counter;
   
-  while (counter < 21)
+  while (*p_int < 21)
   {
-      ++counter;
-      if ((counter & 1) != 0)
-      {
-        ++counter;
-        /* if counter is odd */
-      }
-      else
-      {
-        /* if counter is even */
-      }
+      ++(*p_int);
   }
+  
+  p_int = (int *)0x20000002U;
+  *p_int = 0xDEADBEEF;
   
   return 0;
 }
