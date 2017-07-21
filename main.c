@@ -6,6 +6,16 @@
 #define LED_BLUE        (1U << 2)
 #define LED_GREEN       (1U << 3)
 
+int16_t x = -1;
+uint32_t y = LED_RED | LED_GREEN;
+
+int16_t sqr[] = {
+    1*1,
+    2*2,
+    3*3,
+    4*4
+};
+
 typedef struct {
     uint8_t y;
     uint16_t x;
@@ -20,8 +30,19 @@ typedef struct {
     Point corners[3];
 } Triangle;
 
-Point p1, p2;
-Window w, w1;
+Point p1 = {
+    123U,
+    0x1234U
+};
+
+Point p2;
+
+Window w = {
+  { 123U, 0x1234U},
+  { 456U, 0x6789U}
+};
+
+Window w1;
 Triangle t;
 
 Point* pp;
