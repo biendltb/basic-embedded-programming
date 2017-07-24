@@ -1,6 +1,6 @@
 /* Board Support Package */
 
-#include "tm4c_cmsis.h"
+#include "TM4C123GH6PM.h"
 #include "bsp.h"
 
 void assert_failed (char const *file, int line) {
@@ -9,5 +9,5 @@ void assert_failed (char const *file, int line) {
 }
 
 void SysTick_Handler(void) {
-    GPIOF_HS->DATA_Bits[LED_RED] ^= LED_RED;
+    GPIOF_AHB->DATA_Bits[LED_RED] ^= LED_RED;
 }
